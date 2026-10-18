@@ -49,13 +49,7 @@
   /* Hero: a live-caption transcript */
   .hero { padding-block: 18vh 12vh; }
   .transcript { margin: 0; padding: 0; list-style: none; }
-  .line {
-    display: grid;
-    grid-template-columns: 4.2rem 1fr;
-    gap: 0 1rem;
-    align-items: baseline;
-    margin-bottom: .6rem;
-  }
+  .line { margin-bottom: .6rem; }
   .ts {
     color: var(--muted);
     font-size: .9rem;
@@ -84,7 +78,7 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
 
-  .hero-links { margin: 2.2rem 0 0 5.2rem; color: var(--muted); font-size: 1rem; }
+  .hero-links { margin: 2.2rem 0 0; color: var(--muted); font-size: 1rem; }
   .hero-links a { margin-right: 1.2rem; }
 
   /* Sections */
@@ -97,14 +91,40 @@
   p { margin: 0 0 1rem; max-width: 38rem; }
   .muted { color: var(--muted); }
 
+  /* About: text beside a portrait */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 13rem;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .about p:last-child { margin-bottom: 0; }
+  .portrait {
+    margin: 0;
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--rule);
+  }
+  .portrait img { display: block; width: 100%; height: auto; }
+
   .projects { list-style: none; margin: 0; padding: 0; }
   .project { padding: 0 0 2rem; }
   .project h3 { font-size: 1.2rem; font-weight: 700; margin: 0 0 .15rem; line-height: 1.3; }
   .project .where { color: var(--muted); font-size: .95rem; margin-bottom: .5rem; }
   .project p { margin-bottom: .4rem; }
   .project .stack { color: var(--muted); font-size: .95rem; }
+  .project .role { margin: .5rem 0 .5rem; }
+  .project .role span { font-weight: 700; margin-right: .4rem; }
   .project.lead h3 { font-size: 1.45rem; }
   .project.lead { padding-left: 1rem; border-left: 3px solid var(--accent); margin-bottom: .5rem; }
+  .project .links { margin-top: .4rem; font-size: .95rem; }
+  .project .links a { margin-right: 1rem; }
+
+  .other-h { font-size: 1rem; font-weight: 700; margin: 1rem 0 .75rem; }
+  .other { list-style: none; margin: 0; padding: 0; }
+  .other li { padding: .3rem 0; }
+  .other span { color: var(--muted); }
 
   .contact-list { list-style: none; margin: 0; padding: 0; }
   .contact-list li { display: grid; grid-template-columns: 6.5rem 1fr; padding: .35rem 0; }
@@ -115,9 +135,8 @@
   @media (max-width: 560px) {
     body { font-size: 17px; }
     .hero { padding-block: 12vh 8vh; }
-    .line { grid-template-columns: 3.2rem 1fr; gap: 0 .6rem; }
-    .ts { font-size: .8rem; }
-    .hero-links { margin-left: 3.8rem; }
+    .about { grid-template-columns: 1fr; gap: 1.5rem; }
+    .portrait { width: 11rem; order: -1; }
     .contact-list li { grid-template-columns: 5.5rem 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -137,50 +156,68 @@
     <p class="hero-links">
       <a href="#work">Work</a>
       <a href="#contact">Contact</a>
-      <!-- TODO: upload your resume PDF next to index.html as resume.pdf, then keep this link -->
       <a href="resume.pdf">Resume (PDF)</a>
     </p>
   </header>
 
   <section class="wrap" aria-labelledby="about-h">
     <h2 id="about-h">About</h2>
+    <div class="about">
+    <div>
     <p>I’m a fourth-year Computer Science student at National Yang Ming Chiao Tung University (NYCU). My work sits where human–computer interaction meets speech and language technology: I care about how AI systems fit into the way people actually talk, read, and decide.</p>
     <p class="muted">I also enjoy the lower layers — networking, containers, and the infrastructure that keeps real-time systems running.</p>
+    </div>
+    <figure class="portrait"><img src="photo.jpg" alt="Portrait of EJ Chen" width="1678" height="2983" loading="lazy"></figure>
+    </div>
   </section>
 
   <section class="wrap" id="work" aria-labelledby="work-h">
     <h2 id="work-h">Selected work</h2>
     <ul class="projects">
       <li class="project lead">
-        <h3>Real-time meeting transcription</h3>
-        <div class="where">Senior project, HAIX Lab, NYCU</div>
-        <p>An AI-assisted meeting transcription system with live speech recognition. I work on the audio pipeline and streaming architecture, and explore Mandarin ASR models for real-time captioning over WebSocket.</p>
-        <div class="stack">Speech recognition, WebSocket streaming, audio processing</div>
+        <h3>OmniObserve</h3>
+        <div class="where">Senior research project, HAIX Lab, NYCU, advised by Prof. Grace Yu-Chun Yen</div>
+        <p>An online meeting facilitator that helps hidden consensus surface. Participants note private thoughts by quick voice input; the system transcribes them, turns them into idea blocks with an LLM, finds similar ideas across people with embeddings, and sends anonymous cues so unspoken agreement can reach the group discussion.</p>
+        <p class="role"><span>My part</span> The speech pipeline (Breeze ASR, voice activity detection, streaming transcription), the private board in React (idea block editing, manual input, linking transcripts to ideas), and study task design.</p>
+        <div class="stack">React, TypeScript, FastAPI, WebSocket, Breeze ASR, PostgreSQL + pgvector, Jitsi</div>
+        <div class="links"><a href="https://github.com/ejejej19/OmniObserve">GitHub</a><a href="https://youtu.be/l1eS5ZlEzFM">Demo video</a></div>
       </li>
       <li class="project">
-        <h3>Multimodal retrieval for RAG</h3>
-        <div class="where">Natural Language Processing course</div>
-        <p>A hybrid retrieval pipeline combining BM25 and BGE-M3 dense retrieval with reciprocal rank fusion, cross-encoder reranking, and a learning-to-rank stage (XGBRanker) on engineered features.</p>
-        <div class="stack">Python, BGE-M3, cross-encoders, XGBoost</div>
+        <h3>SoulSee: an AI photo booth that keeps you in charge</h3>
+        <div class="where">OpenHCI 2026, team of five. Best Application Award and Best Popularity Award; demoed at TAICHI 2026</div>
+        <p>AI proposes a reference shot from what you describe, then live pose detection and the phone's orientation sensor guide you one hint at a time. You decide whether to match it, drift from it, or shoot your own version. Camera data never leaves the browser.</p>
+        <p class="role"><span>My part</span> Problem definition and ideation, usability testing during development, refining the concept after judges' feedback, and presenting the system to visitors at the final showcase and TAICHI.</p>
+        <div class="stack">JavaScript, MediaPipe Pose, Gemini and OpenAI image models, Cloudflare Workers</div>
+        <div class="links"><a href="https://github.com/ejejej19/OpenHCI-SoulSee">GitHub</a><a href="https://openhci.cechung.com">Live demo</a></div>
       </li>
       <li class="project">
-        <h3>Containerized 5G core network</h3>
-        <div class="where">Networking lab</div>
-        <p>Built and debugged an end-to-end 5G stack with srsRAN and Open5GS running in Docker on Ubuntu.</p>
-        <div class="stack">srsRAN, Open5GS, Docker</div>
+        <h3>3D fireworks over a lake</h3>
+        <div class="where">Computer Graphics course, team of two</div>
+        <p>A real-time OpenGL scene extending an open-source fireworks renderer with a wave-animated lake that reflects the fireworks, procedural trees and mountains, explosion-driven dynamic lighting, and HDR bloom.</p>
+        <p class="role"><span>My part</span> The lake: wave animation, Fresnel shading and firework reflections, plus building the surrounding scene.</p>
+        <div class="stack">C++, OpenGL, GLSL</div>
+        <div class="links"><a href="https://github.com/ejejej19/3-1-CG-FinalProject">GitHub</a><a href="https://youtu.be/mTzf21fB2oM">Demo video</a></div>
       </li>
       <li class="project">
-        <h3>SDN with live monitoring</h3>
-        <div class="where">Networking lab</div>
-        <p>An OpenFlow network on Open vSwitch controlled by ONOS, with a Prometheus and Grafana dashboard for traffic monitoring.</p>
-        <div class="stack">OpenFlow, OVS, ONOS, Prometheus, Grafana</div>
+        <h3>Evaluating LLM-generated recipes</h3>
+        <div class="where">Artificial Intelligence course, team of four</div>
+        <p>ChatGPT, Gemini and Claude generated recipes from photos of Taiwanese dishes. We compared text metrics with our own importance-weighted Recipe-F1 and a user study: BERTScore matched human ratings most often per recipe, while Recipe-F1 came closest on average for cooking steps.</p>
+        <p class="role"><span>My part</span> BERT-based evaluation, fried-chicken data collection and evaluation, and collecting ChatGPT's responses.</p>
+        <div class="stack">Python, BERTScore, ROUGE, bert-base-chinese</div>
+        <div class="links"><a href="https://github.com/ejejej19/AI_Final_Project">GitHub</a><a href="https://docs.google.com/presentation/d/1vSrX-mGXMiXG0kDOw2nF9EXQY7VtYguvXYy0gnwYNiI/edit?usp=sharing">Slides</a></div>
       </li>
+    </ul>
+
+    <h3 class="other-h">Other projects</h3>
+    <ul class="other">
+      <li><a href="https://github.com/ejejej19/DBMS-final-project">Diet tracker</a> <span>Meal logging and nutrition summaries with Flask and MySQL; I built the database and SQL queries.</span></li>
+      <li><a href="https://github.com/ejejej19/ML-FinalReport">Detecting tidal disruption events</a> <span>Imbalanced classification on a Kaggle astronomy challenge; best F1 0.4421 with a tuned SVM.</span></li>
+      <li><a href="https://youtu.be/7nSH4xCGh7g">Robot animation</a> <span>Mixamo motions retargeted to a robot, refined with camera work in Blender.</span></li>
     </ul>
   </section>
 
   <section class="wrap" id="contact" aria-labelledby="contact-h">
     <h2 id="contact-h">Contact</h2>
-    <!-- TODO: replace the three placeholder links below with your real ones -->
     <ul class="contact-list">
       <li><span>Email</span><a href="mailto:yijiechenchen@gmail.com">yijiechenchen@gmail.com</a></li>
       <li><span>GitHub</span><a href="https://github.com/ejejej19">github.com/ejejej19</a></li>
