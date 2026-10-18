@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EJ Chen</title>
+<meta name="description" content="EJ Chen — Computer Science student at NYCU working on human–AI interaction, speech, and language systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F2F4F1;
+    --ink: #17201E;
+    --muted: #5A6662;
+    --interim: #9AA6A2;
+    --accent: #255F85;
+    --caption: #DDE7EC;
+    --rule: #D3D9D5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #141A19;
+      --ink: #E6ECE9;
+      --muted: #9AA8A3;
+      --interim: #5D6A66;
+      --accent: #8CC0E3;
+      --caption: #1F2E35;
+      --rule: #2A3432;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.55;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 44rem; margin-inline: auto; padding-inline: 20px; }
+
+  /* Hero: a live-caption transcript */
+  .hero { padding-block: 18vh 12vh; }
+  .transcript { margin: 0; padding: 0; list-style: none; }
+  .line {
+    display: grid;
+    grid-template-columns: 4.2rem 1fr;
+    gap: 0 1rem;
+    align-items: baseline;
+    margin-bottom: .6rem;
+  }
+  .ts {
+    color: var(--muted);
+    font-size: .9rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .text {
+    font-size: clamp(1.6rem, 4.6vw, 2.6rem);
+    line-height: 1.18;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+  .line:first-child .text { font-weight: 700; }
+  .text .w { transition: color .5s ease; }
+  .js .line { visibility: hidden; }
+  .js .line.on { visibility: visible; }
+  .js .w { color: var(--interim); }
+  .js .w.hidden { visibility: hidden; }
+  .js .line.final .w { color: var(--ink); }
+  .cursor {
+    display: inline-block;
+    width: .08em; height: .9em;
+    margin-left: .08em;
+    background: var(--accent);
+    vertical-align: -0.08em;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-links { margin: 2.2rem 0 0 5.2rem; color: var(--muted); font-size: 1rem; }
+  .hero-links a { margin-right: 1.2rem; }
+
+  /* Sections */
+  section { padding-block: 3.5rem; border-top: 1px solid var(--rule); }
+  h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 1.5rem;
+  }
+  p { margin: 0 0 1rem; max-width: 38rem; }
+  .muted { color: var(--muted); }
+
+  .projects { list-style: none; margin: 0; padding: 0; }
+  .project { padding: 0 0 2rem; }
+  .project h3 { font-size: 1.2rem; font-weight: 700; margin: 0 0 .15rem; line-height: 1.3; }
+  .project .where { color: var(--muted); font-size: .95rem; margin-bottom: .5rem; }
+  .project p { margin-bottom: .4rem; }
+  .project .stack { color: var(--muted); font-size: .95rem; }
+  .project.lead h3 { font-size: 1.45rem; }
+  .project.lead { padding-left: 1rem; border-left: 3px solid var(--accent); margin-bottom: .5rem; }
+
+  .contact-list { list-style: none; margin: 0; padding: 0; }
+  .contact-list li { display: grid; grid-template-columns: 6.5rem 1fr; padding: .35rem 0; }
+  .contact-list span { color: var(--muted); }
+
+  footer { padding-block: 2.5rem 4rem; color: var(--muted); font-size: .9rem; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .hero { padding-block: 12vh 8vh; }
+    .line { grid-template-columns: 3.2rem 1fr; gap: 0 .6rem; }
+    .ts { font-size: .8rem; }
+    .hero-links { margin-left: 3.8rem; }
+    .contact-list li { grid-template-columns: 5.5rem 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cursor { animation: none; }
+    .text .w { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="hero wrap" aria-label="Introduction">
+    <ol class="transcript" id="transcript">
+      <li class="line"><span class="text">Hi, I’m EJ Chen.</span></li>
+      <li class="line"><span class="text">I study computer science at NYCU in Hsinchu.</span></li>
+      <li class="line"><span class="text">I build systems that listen to people and help them think.</span></li>
+    </ol>
+    <p class="hero-links">
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+      <!-- TODO: upload your resume PDF next to index.html as resume.pdf, then keep this link -->
+      <a href="resume.pdf">Resume (PDF)</a>
+    </p>
+  </header>
+
+  <section class="wrap" aria-labelledby="about-h">
+    <h2 id="about-h">About</h2>
+    <p>I’m a fourth-year Computer Science student at National Yang Ming Chiao Tung University (NYCU). My work sits where human–computer interaction meets speech and language technology: I care about how AI systems fit into the way people actually talk, read, and decide.</p>
+    <p class="muted">I also enjoy the lower layers — networking, containers, and the infrastructure that keeps real-time systems running.</p>
+  </section>
+
+  <section class="wrap" id="work" aria-labelledby="work-h">
+    <h2 id="work-h">Selected work</h2>
+    <ul class="projects">
+      <li class="project lead">
+        <h3>Real-time meeting transcription</h3>
+        <div class="where">Senior project, HAIX Lab, NYCU</div>
+        <p>An AI-assisted meeting transcription system with live speech recognition. I work on the audio pipeline and streaming architecture, and explore Mandarin ASR models for real-time captioning over WebSocket.</p>
+        <div class="stack">Speech recognition, WebSocket streaming, audio processing</div>
+      </li>
+      <li class="project">
+        <h3>Multimodal retrieval for RAG</h3>
+        <div class="where">Natural Language Processing course</div>
+        <p>A hybrid retrieval pipeline combining BM25 and BGE-M3 dense retrieval with reciprocal rank fusion, cross-encoder reranking, and a learning-to-rank stage (XGBRanker) on engineered features.</p>
+        <div class="stack">Python, BGE-M3, cross-encoders, XGBoost</div>
+      </li>
+      <li class="project">
+        <h3>Containerized 5G core network</h3>
+        <div class="where">Networking lab</div>
+        <p>Built and debugged an end-to-end 5G stack with srsRAN and Open5GS running in Docker on Ubuntu.</p>
+        <div class="stack">srsRAN, Open5GS, Docker</div>
+      </li>
+      <li class="project">
+        <h3>SDN with live monitoring</h3>
+        <div class="where">Networking lab</div>
+        <p>An OpenFlow network on Open vSwitch controlled by ONOS, with a Prometheus and Grafana dashboard for traffic monitoring.</p>
+        <div class="stack">OpenFlow, OVS, ONOS, Prometheus, Grafana</div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="wrap" id="contact" aria-labelledby="contact-h">
+    <h2 id="contact-h">Contact</h2>
+    <!-- TODO: replace the three placeholder links below with your real ones -->
+    <ul class="contact-list">
+      <li><span>Email</span><a href="mailto:yijiechenchen@gmail.com">yijiechenchen@gmail.com</a></li>
+      <li><span>GitHub</span><a href="https://github.com/ejejej19">github.com/ejejej19</a></li>
+      <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/ej-yijie-chen">linkedin.com/in/ej-yijie-chen</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap">© <span id="year">2026</span> EJ Chen</footer>
+
+<script>
+(function () {
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  var root = document.documentElement;
+  var lines = Array.prototype.slice.call(document.querySelectorAll('#transcript .line'));
+
+  // Wrap each word so it can arrive like a streaming caption.
+  lines.forEach(function (line) {
+    var text = line.querySelector('.text');
+    var words = text.textContent.split(' ');
+    text.textContent = '';
+    words.forEach(function (w, i) {
+      var s = document.createElement('span');
+      s.className = 'w hidden';
+      s.textContent = w;
+      text.appendChild(s);
+      if (i < words.length - 1) text.appendChild(document.createTextNode(' '));
+    });
+  });
+  root.classList.add('js');
+
+  var cursor = document.createElement('span');
+  cursor.className = 'cursor';
+  cursor.setAttribute('aria-hidden', 'true');
+
+  var li = 0;
+  function playLine() {
+    if (li >= lines.length) return;
+    var line = lines[li];
+    var words = line.querySelectorAll('.w');
+    line.classList.add('on');
+    line.querySelector('.text').appendChild(cursor);
+    var wi = 0;
+    var timer = setInterval(function () {
+      words[wi].classList.remove('hidden');
+      wi++;
+      if (wi >= words.length) {
+        clearInterval(timer);
+        setTimeout(function () {
+          line.classList.add('final');   // interim text settles into final text
+          li++;
+          if (li < lines.length) setTimeout(playLine, 350);
+        }, 380);
+      }
+    }, 110);
+  }
+  setTimeout(playLine, 300);
+})();
+</script>
+</body>
+</html>

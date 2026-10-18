@@ -1,0 +1,9 @@
+{
+  // 必須和 Cloudflare 後台的 Worker 名稱一樣
+  "name": "home",
+  "compatibility_date": "2026-10-18",
+  "assets": {
+    // 網站檔案都放在 public 資料夾裡，只有這裡的檔案會上線
+    "directory": "./public"
+  }
+}
