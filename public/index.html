@@ -126,6 +126,12 @@
   .other li { padding: .3rem 0; }
   .other span { color: var(--muted); }
 
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline li { display: grid; grid-template-columns: 9.5rem 1fr; gap: 0 1rem; padding: .45rem 0; }
+  .timeline .when { color: var(--muted); font-size: .95rem; font-variant-numeric: tabular-nums; padding-top: .1rem; }
+  .timeline strong { font-weight: 700; }
+  .timeline .note { display: block; color: var(--muted); font-size: .95rem; }
+
   .contact-list { list-style: none; margin: 0; padding: 0; }
   .contact-list li { display: grid; grid-template-columns: 6.5rem 1fr; padding: .35rem 0; }
   .contact-list span { color: var(--muted); }
@@ -138,6 +144,8 @@
     .about { grid-template-columns: 1fr; gap: 1.5rem; }
     .portrait { width: 11rem; order: -1; }
     .contact-list li { grid-template-columns: 5.5rem 1fr; }
+    .timeline li { grid-template-columns: 1fr; }
+    .timeline .when { padding-top: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
     .cursor { animation: none; }
@@ -150,7 +158,7 @@
   <header class="hero wrap" aria-label="Introduction">
     <ol class="transcript" id="transcript">
       <li class="line"><span class="text">Hi, I’m EJ Chen.</span></li>
-      <li class="line"><span class="text">I study computer science at NYCU in Hsinchu.</span></li>
+      <li class="line"><span class="text">I study computer science at NYCU.</span></li>
       <li class="line"><span class="text">I build systems that listen to people and help them think.</span></li>
     </ol>
     <p class="hero-links">
@@ -165,10 +173,23 @@
     <div class="about">
     <div>
     <p>I’m a fourth-year Computer Science student at National Yang Ming Chiao Tung University (NYCU). My work sits where human–computer interaction meets speech and language technology: I care about how AI systems fit into the way people actually talk, read, and decide.</p>
-    <p class="muted">I also enjoy the lower layers — networking, containers, and the infrastructure that keeps real-time systems running.</p>
     </div>
     <figure class="portrait"><img src="photo.jpg" alt="Portrait of EJ Chen" width="1678" height="2983" loading="lazy"></figure>
     </div>
+  </section>
+
+  <section class="wrap" id="background" aria-labelledby="bg-h">
+    <h2 id="bg-h">Education and honors</h2>
+    <ul class="timeline">
+      <li><span class="when">2023 – 2027</span><div><strong>B.S. in Computer Science</strong>, National Yang Ming Chiao Tung University (NYCU), Taiwan <span class="note">Expected graduation June 2027</span></div></li>
+      <li><span class="when">Spring 2027</span><div><strong>Exchange student</strong>, Technical University of Denmark (DTU)</div></li>
+      <li><span class="when">2025 - 2026</span><div><strong>Undergraduate researcher</strong>, HAIX Lab, NYCU, advised by Prof. Grace Yu-Chun Yen</div></li>
+      <li><span class="when">2026</span><div><strong>NSTC Undergraduate Research Grant</strong>, National Science and Technology Council, Taiwan, for OmniObserve</div></li>
+      <li><span class="when">2026</span><div><strong>Honorable Mention</strong>, NYCU Computer Science Undergraduate Project Competition, for OmniObserve</div></li>
+      <li><span class="when">2026</span><div><strong>Best Application Award and Best Popularity Award</strong>, OpenHCI 2026, for SoulSee</div></li>
+      <li><span class="when">2026</span><div><strong>Demo</strong>, TAICHI 2026, for SoulSee</div></li>
+      <li><span class="when">2026</span><div><strong>Poster</strong>, TAICHI 2026, for OmniObserve</div></li>
+    </ul>
   </section>
 
   <section class="wrap" id="work" aria-labelledby="work-h">
@@ -176,7 +197,7 @@
     <ul class="projects">
       <li class="project lead">
         <h3>OmniObserve</h3>
-        <div class="where">Senior research project, HAIX Lab, NYCU, advised by Prof. Grace Yu-Chun Yen</div>
+        <div class="where">Senior research project, HAIX Lab, NYCU, advised by Prof. Grace Yu-Chun Yen. NSTC Undergraduate Research Grant; Honorable Mention, NYCU CS Undergraduate Project Competition</div>
         <p>An online meeting facilitator that helps hidden consensus surface. Participants note private thoughts by quick voice input; the system transcribes them, turns them into idea blocks with an LLM, finds similar ideas across people with embeddings, and sends anonymous cues so unspoken agreement can reach the group discussion.</p>
         <p class="role"><span>My part</span> The speech pipeline (Breeze ASR, voice activity detection, streaming transcription), the private board in React (idea block editing, manual input, linking transcripts to ideas), and study task design.</p>
         <div class="stack">React, TypeScript, FastAPI, WebSocket, Breeze ASR, PostgreSQL + pgvector, Jitsi</div>
